@@ -1,33 +1,27 @@
-let products;
-fetch('data/products.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(data) {
+let jsonLoaded = false;
+let products, cartList = [], cart = [], total = 0;
+fetch('./products.json')
+    .then(response => response.json())
+    .then(data => {
         products = data;
-        console.log(products)
+        jsonLoaded = true;
     })
-    .catch(function(error) {
-        console.log('Error al cargar el archivo JSON:', error);
+    .catch(error => {
+        console.error('Error al cargar el archivo JSON:', error);
     });
 
-// Array with products (objects) added directly with push(). Products in this array are repeated.
-let cartList = [];
 
-// Improved version of cartList. Cart is an array of products (objects),
-// but each one has a quantity field to define its quantity, so these products are not repeated.
-let cart = [];
-
-let total = 0;
 
 // Exercise 1
 function buy(id) {
-    for (let p in products) if (p.id === id) {
-        cartList.push(p)
-        return
-    }
+    if(jsonLoaded)
+        products.forEach(function (p){
+            if (p.id === id) {
+                cartList.push(p)
+                console.log(p.name + " added to cart")
+            }
+        })
 }
-
 // Exercise 2
 function cleanCart() {
     cartList.length=0;
@@ -35,14 +29,29 @@ function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    cartList.forEach(p=>total+=p.total)
+    let res=0;
+    for (let i = 0; i < cartList.length; i++) {
+        res+=cartList[i].price;
+    }
+   total=res;
 }
 
 // Exercise 4
 function generateCart() {
-    // Using the "cartlist" array that contains all the items in the shopping cart, 
-    // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the
-    // quantity of product.
+    for (let i = 0; i < cartList.length; i++) {
+        let found=false;
+        if (cart.length !== 0) {
+        cart.forEach(item => {
+            if(item.product===cartList[i]){
+                item.qtt++;
+                found=true;
+            }
+        });
+        }
+        if(!found){
+            cart.push({"qtt":1,"product":cartList[i]})
+        }
+    }
 }
 
 // Exercise 5
