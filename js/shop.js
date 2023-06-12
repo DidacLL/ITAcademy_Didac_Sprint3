@@ -14,7 +14,8 @@ fetch('data/products.json')
 // Array with products (objects) added directly with push(). Products in this array are repeated.
 let cartList = [];
 
-// Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
+// Improved version of cartList. Cart is an array of products (objects),
+// but each one has a quantity field to define its quantity, so these products are not repeated.
 let cart = [];
 
 let total = 0;
@@ -34,14 +35,14 @@ function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
-    // Calculate total price of the cart using the "cartList" array
+    cartList.forEach(p=>total+=p.total)
 }
 
 // Exercise 4
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
-    // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+    // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the
+    // quantity of product.
 }
 
 // Exercise 5
