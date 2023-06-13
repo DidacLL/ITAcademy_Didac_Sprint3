@@ -42,13 +42,14 @@ function generateCart() {
         let found=false;
         if (cart.length !== 0) {
         cart.forEach(item => {
-            if(item.product===cartList[i]){
-                item.qtt++;
+            if(item.id===cartList[i].id){
+                item.quantity++;
                 found=true;
             }
         });
         }
         if(!found){
+            cartList[i]['quantity']=1
             cart.push({"qtt":1,"product":cartList[i]})
         }
     }
